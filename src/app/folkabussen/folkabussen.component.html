@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+</head>
+<header>
+  <div class="container">
+    <nav>
+      <meta charset="UTF-8">
+      <br>
+      <div class="grid-container">
+        <div>
+          <mat-card-title>Folkabussen</mat-card-title>
+        </div>
+        <div>
+          <mat-card-content>
+            (Click on 'Get Buslines' to show the top 10 bus lines that has most bus stops on their route,
+          </mat-card-content>
+        </div>
+        <div>
+          <mat-card-content>
+            names of each stop in dropdown)
+          </mat-card-content>
+        </div>
+
+        <div class="mat-elevation-z8">
+          <form [formGroup]="theForm">
+            <button mat-raised-button type="button" (click)="getStops()">Get Buslines</button>
+            <button mat-raised-button type="button" (click)="reset()">Reset</button>
+          </form>
+
+          <span>
+            <table width="100%">
+              <div *ngFor="let item of myMap | keyvalue : keyDescOrder | slice:0:10">
+                <ng-container matColumnDef="id">
+                  <th mat-header-cell>Bus Line</th>
+                  <td mat-cell width="50">{{item.key}}</td>
+                </ng-container>
+                 <ng-container matColumnDef="name">
+                  <th mat-header-cell>Number of stops</th>
+                  <td mat-cell width="50">{{item.value}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="stuff">
+                  <th mat-header-cell>Stops:</th>
+                  <td>
+                  <mat-select width="50">
+                    <mat-option *ngFor="let stopItem of buslineWithStopsMap.get(item.key)" [value]="stopItem">
+                      {{stopItem}}
+                    </mat-option>
+                  </mat-select>
+                  </td>
+                </ng-container>
+              </div>
+            </table>
+          </span>
+        </div>
+
+      </div>
+
+    </nav>
+  </div>
+
+</header>
+</html>
