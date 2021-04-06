@@ -19,9 +19,8 @@ export class FolkaService {
           this.httpClient.get<any>(this.busUrl)
           .subscribe(
             result => {
-              console.log('some result');
-              console.log(result.ResponseData.Result);
-
+              //console.log('some result');
+             // console.log(result.ResponseData.Result);
               resolve(result.ResponseData.Result);
             },
             err => {
@@ -38,9 +37,8 @@ export class FolkaService {
           this.httpClient.get<any>(this.stopsUrl)
           .subscribe(
             result => {
-              console.log('some result');
-              console.log(result.ResponseData.Result);
-
+              //console.log('some result');
+              //console.log(result.ResponseData.Result);
               resolve(result.ResponseData.Result);
             },
             err => {

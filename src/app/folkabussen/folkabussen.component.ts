@@ -4,7 +4,6 @@ import { BusLine } from './busline';
 import { Stops } from './stops';
 import { FormGroup, FormControl } from '@angular/forms';
 import { KeyValue } from '@angular/common';
-//import { HttpClientModule } from '@angular/common/http';
 
 
 @Component({
@@ -38,16 +37,15 @@ export class FolkabussenComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('FolkabussenComponent ngOnInit');
-    let stopsArray : string[] = [];
-    stopsArray.push("");
-    this.buslineWithStopsMap.set("key99", stopsArray);
-    console.log('After FolkabussenComponent ngOnInit');
+    //let stopsArray : string[] = [];
+   // stopsArray.push("");
+    //this.buslineWithStopsMap.set("key99", stopsArray);
+
   }
 
 
   getBuslines(){
       console.log("getBuslines()");
-
       this.folkaservice.getBuslines().then(
         response => {  this.handleSuccessfulResponseBusLines(response) ;},
         err => {  this.handleError(err, err.status) ;},
@@ -57,50 +55,10 @@ export class FolkabussenComponent implements OnInit {
   getStops(){
       console.log("getStops()");
       this.loader = true;
-
       this.folkaservice.getStops().then(
         response => {  this.handleSuccessfulResponseStops(response) ;},
         err => {  this.handleError(err, err.status) ;},
        );
-  }
-
-
-
-  public onSubmit(){
-    console.log('onSubmit');
-
-
-    this.myMap.set("key1", 12);
-    this.myMap.set("key2", 14);
-    this.myMap.set("key3", 3);
-    this.myMap.set("key4", 18);
-    this.myMap.set("key5", 16);
-    this.myMap.set("key6", 34);
-    this.myMap.set("key7", 50);
-    this.myMap.set("key8", 55);
-    this.myMap.set("key9", 65);
-    this.myMap.set("key10", 22);
-    this.myMap.set("key11", 100);
-    this.myMap.set("key12", 1);
-
-    let stopsArray : string[] = [];
-    for (let i = 0; i < 1000; i++) {
-      console.log ("Block statement execution no." + i);
-      var pp = "p"+i;
-       stopsArray.push(pp);
-    }
-
-
-      //let collection: any[] = stopsArray;
-      //stopsArray.push("111");
-      //stopsArray.push("222");
-      //stopsArray.push("333");
-      // this.loader = false;
-      this.buslineWithStopsMap.set("key11", stopsArray);
-      this.buslineWithStopsMap.set("key9", stopsArray);
-      this.buslineWithStopsMap.set("key8", stopsArray);
-       this.loader = false;
-
   }
 
 
@@ -120,7 +78,7 @@ export class FolkabussenComponent implements OnInit {
   }
 
   handleSuccessfulResponseBusLines(response: BusLine[]){
-    console.log('the bus resp=',response);
+    //console.log('the bus resp=',response);
     console.log('the bus resp len=',response.length);
 
     let numret : number = 0;
@@ -149,23 +107,11 @@ export class FolkabussenComponent implements OnInit {
     }
     this.loader = false;
 
-    console.log('buslineWithStopsMap',this.buslineWithStopsMap);
-
-    console.log('iterating map=');
-    let summa : number = 0;
-    this.myMap.forEach((value: number, key: string) => {
-        let num = this.myMap.get(key) as number;
-        summa +=num;
-    });
-    console.log('numret=',numret);
-    console.log('summa=',summa);
-
-
   }
 
   handleSuccessfulResponseStops(response: Stops[]){
-      console.log('the bus resp=',response);
-      console.log('the bus resp len=',response.length);
+      //console.log('the bus resp=',response);
+      console.log('the bus stops len=',response.length);
       let map = new Map<string, number>();
       let numret : number = 0;
       for (var val of response) {
