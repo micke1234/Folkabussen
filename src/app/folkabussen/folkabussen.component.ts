@@ -37,10 +37,6 @@ export class FolkabussenComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('FolkabussenComponent ngOnInit');
-    //let stopsArray : string[] = [];
-   // stopsArray.push("");
-    //this.buslineWithStopsMap.set("key99", stopsArray);
-
   }
 
 
