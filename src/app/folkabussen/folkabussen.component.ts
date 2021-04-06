@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FolkaService } from './folka.service';
-import {plainToClass} from "class-transformer";
-import { ResultDataJox } from './resultdata';
-import { ResultJoxContent } from './resultjoxcontent';
 import { BusLine } from './busline';
 import { Stops } from './stops';
 import { FormGroup, FormControl } from '@angular/forms';
-import { KeyValue } from '@angular/common'
+import { KeyValue } from '@angular/common';
+//import { HttpClientModule } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-folkabussen',
@@ -19,6 +18,9 @@ export class FolkabussenComponent implements OnInit {
   myMap = new Map<string, number>();   //busline map with number of stops
   stopsMap = new Map<string, string>(); //stops map with stop point number and stop point name
   buslineWithStopsMap = new Map<string, string[]>();
+  loader:boolean = false;
+  errmesssage: string = "";
+  isError: boolean = false;
 
 
   keyDescOrder = (a: KeyValue<string,number>, b: KeyValue<string,number>): number => {
@@ -27,9 +29,6 @@ export class FolkabussenComponent implements OnInit {
 
   theForm = new FormGroup({
     })
-  /*
-  stopsForm = new FormGroup({
-  })*/
 
   constructor(folkaservice: FolkaService){
     console.log('FolkabussenComponent constructor');
@@ -46,40 +45,31 @@ export class FolkabussenComponent implements OnInit {
   }
 
 
-  /*
-  getStuffLiksom(){
-    console.log("getStuffLiksom()");
-
-    this.folkaservice.getStuff().then(
-      response => {  this.handleSuccessfulResponse(response) ;},
-      err => console.log(err),
-     );
-  }*/
-
   getBuslines(){
       console.log("getBuslines()");
 
       this.folkaservice.getBuslines().then(
         response => {  this.handleSuccessfulResponseBusLines(response) ;},
-        err => console.log(err),
+        err => {  this.handleError(err, err.status) ;},
        );
   }
 
   getStops(){
       console.log("getStops()");
+      this.loader = true;
 
       this.folkaservice.getStops().then(
         response => {  this.handleSuccessfulResponseStops(response) ;},
-        err => console.log(err),
+        err => {  this.handleError(err, err.status) ;},
        );
   }
 
-  public doNothing(){
-    console.log('doNothing');
-  }
+
 
   public onSubmit(){
     console.log('onSubmit');
+
+
     this.myMap.set("key1", 12);
     this.myMap.set("key2", 14);
     this.myMap.set("key3", 3);
@@ -93,44 +83,40 @@ export class FolkabussenComponent implements OnInit {
     this.myMap.set("key11", 100);
     this.myMap.set("key12", 1);
 
-      let stopsArray : string[] = [];
+    let stopsArray : string[] = [];
+    for (let i = 0; i < 1000; i++) {
+      console.log ("Block statement execution no." + i);
+      var pp = "p"+i;
+       stopsArray.push(pp);
+    }
+
+
       //let collection: any[] = stopsArray;
-      stopsArray.push("111");
-      stopsArray.push("222");
-      stopsArray.push("333");
+      //stopsArray.push("111");
+      //stopsArray.push("222");
+      //stopsArray.push("333");
+      // this.loader = false;
       this.buslineWithStopsMap.set("key11", stopsArray);
       this.buslineWithStopsMap.set("key9", stopsArray);
       this.buslineWithStopsMap.set("key8", stopsArray);
-
-
-
+       this.loader = false;
 
   }
 
-  public showBuslines(){
-
-      let stopsArray : string[] = [];
-      let collection: any[] = stopsArray;
-      stopsArray.push("111");
-      stopsArray.push("222");
-      stopsArray.push("333");
-      this.buslineWithStopsMap.set("key11", stopsArray);
-      this.buslineWithStopsMap.set("key9", stopsArray);
-      this.buslineWithStopsMap.set("key8", stopsArray);
-
-  }
 
   public reset(){
     this.myMap.clear();
     this.buslineWithStopsMap.clear();
     this.theForm.reset();
+    this.loader = false;
+    this.isError = false;
   }
 
-
-  handleSuccessfulResponse(response: ResultJoxContent[]){
-    console.log('the resp=',response);
-    console.log('the resp len=',response.length);
-
+  handleError(err : string, status : string){
+    this.loader = false;
+    this.isError = true
+    console.log('An error occured',err);
+    this.errmesssage = 'Something went wrong: ' + status;
   }
 
   handleSuccessfulResponseBusLines(response: BusLine[]){
@@ -161,6 +147,7 @@ export class FolkabussenComponent implements OnInit {
         this.buslineWithStopsMap.set(key,stopsArray);
       }
     }
+    this.loader = false;
 
     console.log('buslineWithStopsMap',this.buslineWithStopsMap);
 
@@ -189,11 +176,8 @@ export class FolkabussenComponent implements OnInit {
         let saNumber = val.StopAreaNumber;
 
         this.stopsMap.set(spNumber, spName);
-
       }
-
       this.getBuslines();
-
     }
 
 }

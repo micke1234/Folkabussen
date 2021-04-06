@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ResultDataJox } from './resultdata';
-import { ResultJoxContent } from './resultjoxcontent';
 import { BusLine } from './busline';
 import { Stops } from './stops';
 
@@ -12,29 +10,8 @@ import { Stops } from './stops';
 export class FolkaService {
 
   constructor(private httpClient: HttpClient) { }
-  //locUrl = '/api';
   busUrl = '/buslines';
   stopsUrl = '/stops';
-
-  /*
-  public getStuff() {
-      console.log('FolkaService getSmartphone');
-      return new Promise<ResultJoxContent[]>( (resolve, reject) => {
-        this.httpClient.get<any>(this.locUrl)
-        .subscribe(
-          result => {
-            console.log('some result');
-            console.log(result.ResponseData.Result);
-
-            resolve(result.ResponseData.Result);
-          },
-          err => {
-            console.log('Some error ' + err);
-            reject(err);
-          },
-        );
-      });
-    }*/
 
     public getBuslines(){
         console.log('FolkaService getBuslines');
@@ -73,6 +50,5 @@ export class FolkaService {
           );
         });
     }
-
 
 }

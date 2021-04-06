@@ -1,15 +1,5 @@
 
 {
-  "/api": {
-    "target": "https://api.sl.se/api2/LineData.json?key=dcb2fddda83a46bf9ac6f80fb51c73bf&model=Transportmode",
-    "secure": false,
-    "pathRewrite": {
-      "^/api": ""
-    },
-    "changeOrigin": true,
-    "logLevel": "debug"
-
-  },
   "/buslines": {
     "target": "https://api.sl.se/api2/LineData.json?key=dcb2fddda83a46bf9ac6f80fb51c73bf&model=jour&DefaultTransportModeCode=BUS",
     "secure": false,

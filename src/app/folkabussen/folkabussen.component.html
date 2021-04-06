@@ -12,6 +12,7 @@
         <div>
           <mat-card-title>Folkabussen</mat-card-title>
         </div>
+        <br>
         <div>
           <mat-card-content>
             (Click on 'Get Buslines' to show the top 10 bus lines that has most bus stops on their route,
@@ -22,13 +23,23 @@
             names of each stop in dropdown)
           </mat-card-content>
         </div>
-
-        <div class="mat-elevation-z8">
+        <br>
+        <div class="mat-elevation-z8" style="width:75% !important;">
           <form [formGroup]="theForm">
             <button mat-raised-button type="button" (click)="getStops()">Get Buslines</button>
             <button mat-raised-button type="button" (click)="reset()">Reset</button>
           </form>
-
+          <div *ngIf="loader" class="stuff-loader">
+            <strong>Loading
+              <span class="loader__dot">.</span>
+              <span class="loader__dot">.</span>
+              <span class="loader__dot">.</span></strong>
+          </div>
+          <div *ngIf="isError" class="error-loader">
+            <strong>
+              <span>{{errmesssage}}</span>
+            </strong>
+          </div>
           <span>
             <table width="100%">
               <div *ngFor="let item of myMap | keyvalue : keyDescOrder | slice:0:10">
